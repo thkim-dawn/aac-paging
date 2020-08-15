@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">AAC_PAGING</string>
+    <string name="author">저자</string>
+    <string name="translator">번역자</string>
+    <string name="publication">출판</string>
+    <string name="publisher_date">출판사 및 출판날짜</string>
+    <string name="price">가격</string>
+    <string name="search">검색</string>
+    <string name="detail_page">상세 페이지</string>
+    <string name="content">소개</string>
+    <string name="not_sale">판매X</string>
+    <string name="view_web">웹에서 보기</string>
+    <string name="error_not_exist_result">검색 결과가 없습니다.</string>
+    <string name="error_input_query">검색어를 입력해주세요.</string>
+</resources>

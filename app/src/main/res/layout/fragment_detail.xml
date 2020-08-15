@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="contentDescription,SpUsage">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="kr.taehoon.paging.fragment.DetailFragment" />
+
+        <variable
+            name="book"
+            type="kr.taehoon.paging.data.Book" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@android:color/white"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@android:color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{()->fragment.onBackPressed()}"
+                    android:src="@drawable/ic_back" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/detail_page"
+                    android:textStyle="bold" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/appbar"
+            android:clipToPadding="false"
+            android:paddingTop="@dimen/base_vertical_margin"
+            android:paddingBottom="@dimen/base_vertical_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_detail_book_thumbnail"
+                    android:layout_width="150dp"
+                    android:layout_height="200dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:setImage="@{book.thumbnail}" />
+
+                <TextView
+                    android:id="@+id/tv_detail_book_title"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="@dimen/small_horizontal_margin"
+                    android:layout_marginEnd="@dimen/small_horizontal_margin"
+                    android:text="@{book.title}"
+                    android:textColor="@color/baseTextColor"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/btn_detail_web"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_detail_book_thumbnail"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0"
+                    tools:text="책길이테스트책길이테스트책길이테스트책길이테스트책길이테스트책길이테스트책길이테스트책길이테스트책길이테스트" />
+
+                <Button
+                    android:id="@+id/btn_detail_web"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_horizontal_margin"
+                    android:layout_marginEnd="@dimen/small_horizontal_margin"
+                    android:onClick="@{()->fragment.onClickViewWeb()}"
+                    android:text="@string/view_web"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_detail_book_thumbnail"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_detail_book_thumbnail"
+                    app:layout_constraintTop_toBottomOf="@id/tv_detail_book_title" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/base_horizontal_margin"
+                    android:layout_marginTop="@dimen/base_vertical_margin"
+                    android:layout_marginEnd="@dimen/base_horizontal_margin"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_detail_book_thumbnail">
+
+                    <!--저자-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/author"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_books_authors"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/small_vertical_margin"
+                        android:text="@{book.authorsText.empty? `미상`:book.authorsText }"
+                        android:textSize="14dp"
+                        tools:text="김태훈" />
+
+                    <!--번역자-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/base_vertical_margin"
+                        android:text="@string/translator"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        app:visible="@{!book.translatorsText.empty}" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_translators"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/small_vertical_margin"
+                        android:text="@{book.translatorsText}"
+                        android:textSize="14dp"
+                        app:visible="@{!book.translatorsText.empty}"
+                        tools:text="김태훈" />
+                    <!--출판-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/base_vertical_margin"
+                        android:text="@string/publisher_date"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/small_vertical_margin"
+                        android:text="@{book.publisher.empty ? `출판사 확인 불가` : book.publisher}"
+                        android:textSize="14dp"
+                        tools:text="한및비디어" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/small_vertical_margin"
+                        android:textSize="14dp"
+                        app:date="@{book.datetime}"
+                        app:dateFormat="@{`yyyy.MM.dd`}"
+                        tools:text="2020.06.26" />
+                    <!--가격-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/base_vertical_margin"
+                        android:text="@string/price"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/small_vertical_margin"
+                        android:text="@{book.status.empty ? @string/not_sale : book.status}"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:textSize="14dp"
+                        app:visible="@{book.salePrice&lt;0}"
+                        tools:text="정상판매" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:visible="@{book.salePrice>=0}">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/small_vertical_margin"
+                            android:textSize="14dp"
+                            app:price="@{book.salePrice}"
+                            tools:text="100,000원" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="@dimen/small_vertical_margin"
+                            android:textColor="@android:color/holo_red_dark"
+                            android:textSize="14dp"
+                            app:originPrice="@{book.price}"
+                            app:salePrice="@{book.salePrice}"
+                            tools:text="(-10%)" />
+
+                    </LinearLayout>
+                    <!--도서 소개-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/base_vertical_margin"
+                        android:text="@string/content"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        app:visible="@{!book.contents.empty}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/small_vertical_margin"
+                        android:text="@{book.contents}"
+                        android:textSize="14dp"
+                        app:visible="@{!book.contents.empty}"
+                        tools:text="소개입니다." />
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
+</layout>

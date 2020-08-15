@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="contentDescription,SpUsage">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="kr.taehoon.paging.fragment.MainFragment" />
+
+        <variable
+            name="searchViewModel"
+            type="kr.taehoon.paging.SearchViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <kr.taehoon.paging.util.RemoveAbleEditText
+            android:id="@+id/et_search"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="@dimen/base_horizontal_margin"
+            android:layout_marginTop="@dimen/base_vertical_margin"
+            android:layout_marginEnd="@dimen/base_horizontal_margin"
+            android:imeOptions="actionSearch"
+            android:singleLine="true"
+            android:text="@={searchViewModel.searchTextLiveData}"
+            app:layout_constraintEnd_toStartOf="@id/btn_search"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_vertical_margin"
+            android:layout_marginEnd="@dimen/base_horizontal_margin"
+            android:text="@string/search"
+            android:onClick="@{()->fragment.onClickSearchBtn()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/pale_grey"
+            android:layout_marginTop="@dimen/small_vertical_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_search" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/base_horizontal_margin"
+            android:layout_marginTop="@dimen/base_vertical_margin"
+            android:layout_marginEnd="@dimen/base_horizontal_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view1"
+            app:visible="@{searchViewModel.bookListLiveData==null || searchViewModel.bookListLiveData.empty}">
+
+            <ImageView
+                android:id="@+id/iv_error"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_error"
+                android:tint="@android:color/holo_red_light" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_error"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@{searchViewModel.bookListLiveData==null ? @string/error_input_query : @string/error_not_exist_result}"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_book_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/base_horizontal_margin"
+            android:layout_marginTop="@dimen/base_vertical_margin"
+            android:layout_marginEnd="@dimen/base_horizontal_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_search"
+            app:visible="@{!searchViewModel.bookListLiveData.empty}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
